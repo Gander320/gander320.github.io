@@ -9,14 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const calendar = document.createElement('table');
         calendar.classList.add('calendar');
 
-        // 달력 헤더 생성
-        const headerRow = calendar.insertRow();
-        const days = ['일', '월', '화', '수', '목', '금', '토'];
-        days.forEach(day => {
-            const cell = headerRow.insertCell();
-            cell.textContent = day;
-        });
-
         // 달력 바디 생성
         const today = new Date();
         const year = today.getFullYear();
@@ -28,14 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
         let date = 1;
 
         for (let i = 0; i < 6; i++) { // 최대 6주까지 표시
-            const weekRow = calendar.insertRow();
+            const weekRow = document.createElement('tr');
+            weekRow.classList.add('week');
             for (let j = 0; j < 7; j++) {
+                const cell = document.createElement('td');
+                cell.classList.add('day');
+
                 if (i === 0 && j < startingDay) {
-                    weekRow.insertCell(); // 이전 달 날짜
+                    // 이전 달 날짜
+                    cell.textContent = '';
                 } else if (date > numDays) {
                     break; // 다음 달 날짜
                 } else {
-                    const cell = weekRow.insertCell();
                     cell.textContent = date;
 
                     const currentDate = new Date(year, month, date);
@@ -54,7 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     date++;
                 }
+
+                weekRow.appendChild(cell);
             }
+            calendar.appendChild(weekRow);
         }
 
         calendarContainer.appendChild(calendar);
