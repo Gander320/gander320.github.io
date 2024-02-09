@@ -19,13 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const lastDayOfMonth = new Date(year, month + 1, 0);
         const numDays = lastDayOfMonth.getDate();
         const startingDay = firstDayOfMonth.getDay();
-        let date = 1;
+
+        // 요일 배열
+        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
 
         // 테이블 헤더 생성
         const headerRow = document.createElement('tr');
         for (let i = 0; i < 7; i++) {
             const th = document.createElement('th');
-            th.textContent = ['일', '월', '화', '수', '목', '금', '토'][i];
+            th.textContent = weekdays[i];
             headerRow.appendChild(th);
         }
         const thead = document.createElement('thead');
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         calendar.appendChild(thead);
 
         const tbody = document.createElement('tbody');
+        let date = 1;
         for (let i = 0; i < 6; i++) { // 최대 6주까지 표시
             const weekRow = document.createElement('tr');
             weekRow.classList.add('week');
@@ -99,3 +102,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 폼 초기화
         document.getElementById('eventName').value = '';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+    });
+
+    // 초기 달력 초기화
+    initCalendar();
+});
