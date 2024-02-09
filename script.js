@@ -1,7 +1,66 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const calendar = document.getElementById('calendar');
+    const calendarContainer = document.getElementById('calendar');
     const scheduleForm = document.getElementById('scheduleForm');
+    const events = []; // 추가된 일정을 저장하는 배열
 
+    // 달력 초기화 함수
+    function initCalendar() {
+        calendarContainer.innerHTML = ''; // 달력 컨테이너 초기화
+        const calendar = document.createElement('table');
+        calendar.classList.add('calendar');
+
+        // 달력 헤더 생성
+        const headerRow = calendar.insertRow();
+        const days = ['일', '월', '화', '수', '목', '금', '토'];
+        days.forEach(day => {
+            const cell = headerRow.insertCell();
+            cell.textContent = day;
+        });
+
+        // 달력 바디 생성
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const firstDayOfMonth = new Date(year, month, 1);
+        const lastDayOfMonth = new Date(year, month + 1, 0);
+        const numDays = lastDayOfMonth.getDate();
+        const startingDay = firstDayOfMonth.getDay();
+        let date = 1;
+
+        for (let i = 0; i < 6; i++) { // 최대 6주까지 표시
+            const weekRow = calendar.insertRow();
+            for (let j = 0; j < 7; j++) {
+                if (i === 0 && j < startingDay) {
+                    weekRow.insertCell(); // 이전 달 날짜
+                } else if (date > numDays) {
+                    break; // 다음 달 날짜
+                } else {
+                    const cell = weekRow.insertCell();
+                    cell.textContent = date;
+
+                    const currentDate = new Date(year, month, date);
+                    const dateKey = currentDate.toISOString().split('T')[0];
+                    cell.dataset.date = dateKey;
+
+                    // 추가된 일정 표시
+                    const eventDiv = document.createElement('div');
+                    eventDiv.classList.add('events');
+                    events.filter(event => event.date === dateKey).forEach(event => {
+                        const eventNameDiv = document.createElement('div');
+                        eventNameDiv.textContent = event.name;
+                        eventDiv.appendChild(eventNameDiv);
+                    });
+                    cell.appendChild(eventDiv);
+
+                    date++;
+                }
+            }
+        }
+
+        calendarContainer.appendChild(calendar);
+    }
+
+    // 일정 추가 이벤트 핸들러
     scheduleForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
@@ -14,8 +73,15 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // 일정을 달력에 추가하는 함수 호출
-        addEventToCalendar(eventName, startDate, endDate);
+        // 일정을 배열에 추가
+        const newEvent = {
+            name: eventName,
+            date: startDate // 시작일 기준으로만 일정 추가
+        };
+        events.push(newEvent);
+
+        // 달력 다시 초기화
+        initCalendar();
 
         // 폼 초기화
         document.getElementById('eventName').value = '';
@@ -23,23 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('endDate').value = '';
     });
 
-    function addEventToCalendar(eventName, startDate, endDate) {
-        // 시작일부터 종료일까지 반복하며 해당 날짜에 일정을 표시
-        let currentDate = new Date(startDate);
-        const end = new Date(endDate);
-
-        while (currentDate <= end) {
-            const dateKey = currentDate.toISOString().split('T')[0]; // 날짜를 'yyyy-mm-dd' 형식의 문자열로 변환
-            const cell = document.querySelector(`#calendar [data-date="${dateKey}"]`);
-
-            if (cell) {
-                const eventDiv = document.createElement('div');
-                eventDiv.classList.add('event');
-                eventDiv.textContent = eventName;
-                cell.appendChild(eventDiv);
-            }
-
-            currentDate.setDate(currentDate.getDate() + 1); // 다음 날짜로 이동
-        }
-    }
+    // 초기 달력 초기화
+    initCalendar();
 });
