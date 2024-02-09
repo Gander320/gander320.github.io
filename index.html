@@ -1,143 +1,23 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>여행 일정 달력</title>
-    <style>
-        /* 필요한 스타일을 추가하세요 */
-        .calendar-container {
-            max-width: 800px;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .calendar-header {
-            background-color: #f2f2f2;
-            padding: 10px;
-            text-align: center;
-        }
-        .calendar-weekdays {
-            display: flex;
-            justify-content: space-between;
-            background-color: #f2f2f2;
-            padding: 5px;
-        }
-        .calendar-weekdays div {
-            flex: 1;
-            text-align: center;
-            font-weight: bold;
-        }
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            padding: 10px;
-        }
-        .calendar-day {
-            border: 1px solid #ccc;
-            padding: 10px;
-            height: 80px;
-            position: relative;
-        }
-        .today {
-            background-color: #f0f0f0;
-        }
-        .schedule {
-            background-color: lightblue;
-        }
-        .add-schedule-form {
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Travel Scheduler</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="calendar-container">
-        <div class="calendar-header">
-            <h2 id="calendar-title">2024년 2월</h2>
-        </div>
-        <div class="calendar-weekdays">
-            <div>일</div>
-            <div>월</div>
-            <div>화</div>
-            <div>수</div>
-            <div>목</div>
-            <div>금</div>
-            <div>토</div>
-        </div>
-        <div class="calendar-days" id="calendar-days">
-            <!-- 달력 날짜를 동적으로 추가할 부분 -->
-        </div>
+    <div class="container">
+        <h1>여행 일정 스케줄러</h1>
+        <div id="calendar"></div>
+        <form id="scheduleForm">
+            <input type="text" id="eventName" placeholder="일정 이름">
+            <input type="date" id="startDate">
+            <input type="date" id="endDate">
+            <button type="submit">일정 추가</button>
+        </form>
     </div>
 
-    <div class="add-schedule-form">
-        <label for="start-date">시작일:</label>
-        <input type="date" id="start-date">
-        <label for="end-date">종료일:</label>
-        <input type="date" id="end-date">
-        <button onclick="addSchedule()">일정 추가</button>
-    </div>
-
-    <script>
-        // 달력을 표시할 연도와 월 설정
-        const year = 2024;
-        const month = 1; // 0부터 시작하므로 2월은 1로 설정
-
-        const calendarTitle = document.getElementById('calendar-title');
-        calendarTitle.textContent = `${year}년 ${month + 1}월`; // 월은 0부터 시작하므로 +1을 해줍니다.
-
-        const calendarDays = document.getElementById('calendar-days');
-
-        // 해당 월의 첫 번째 날의 요일을 구합니다. (0: 일요일, 1: 월요일, ..., 6: 토요일)
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
-
-        // 해당 월의 마지막 날짜를 구합니다.
-        const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
-
-        // 달력에 날짜를 동적으로 추가합니다.
-        for (let i = 0; i < firstDayOfMonth; i++) {
-            const emptyDay = document.createElement('div');
-            calendarDays.appendChild(emptyDay);
-        }
-
-        for (let i = 1; i <= lastDayOfMonth; i++) {
-            const day = document.createElement('div');
-            day.textContent = i;
-            day.classList.add('calendar-day');
-            if (i === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
-                day.classList.add('today');
-            }
-            calendarDays.appendChild(day);
-        }
-
-        // 일정 추가 함수
-        function addSchedule() {
-            const startDate = new Date(document.getElementById('start-date').value);
-            const endDate = new Date(document.getElementById('end-date').value);
-
-            if (startDate > endDate) {
-                alert("시작일은 종료일보다 이전이어야 합니다.");
-                return;
-            }
-
-            const scheduleDays = document.querySelectorAll('.calendar-day');
-            scheduleDays.forEach(day => {
-                const dayDate = new Date(year, month, parseInt(day.textContent));
-                if (dayDate >= startDate && dayDate <= endDate) {
-                    day.classList.add('schedule');
-                    day.textContent += '\n일정';
-                }
-            });
-        }
-        
-        // 테스트용으로 함수 작동 확인
-        function testFunction() {
-            alert("함수가 잘 작동합니다!");
-        }
-    </script>
-    
-    <!-- 테스트용 버튼 -->
-    <button onclick="testFunction()">테스트용 함수 호출</button>
+    <script src="script.js"></script>
 </body>
 </html>
