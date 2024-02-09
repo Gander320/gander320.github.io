@@ -82,4 +82,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // 달력 다시 초기화
         initCalendar();
 
-        // 폼 초기
+        // 폼 초기화
+        document.getElementById('eventName').value = '';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+    });
+
+    // 초기 달력 초기화
+    initCalendar();
+});
