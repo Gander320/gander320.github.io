@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f2f2f2;
         }
 
         .container {
@@ -16,9 +17,13 @@
             margin: 0 auto;
             padding: 20px;
             text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
+            color: #333;
             margin-bottom: 20px;
         }
 
@@ -27,17 +32,23 @@
             max-width: 600px;
             margin: 0 auto;
             border-collapse: collapse;
-            border: 1px solid #ccc;
         }
 
+        #calendar th,
         #calendar td {
             padding: 10px;
             border: 1px solid #ccc;
             font-size: 16px;
         }
 
-        #calendar .week td {
+        #calendar .week th {
             font-weight: bold;
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        #calendar .today {
+            background-color: #e6f7ff;
         }
 
         .events {
@@ -58,12 +69,25 @@
         button {
             margin-bottom: 10px;
         }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>여행 일정 스케줄러</h1>
-        <div id="calendar"></div>
+        <table id="calendar"></table>
         <form id="scheduleForm">
             <input type="text" id="eventName" placeholder="일정 이름"><br>
             <input type="date" id="startDate"><br>
