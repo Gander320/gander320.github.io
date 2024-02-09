@@ -1,55 +1,39 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-}
-
 .container {
     max-width: 800px;
-    margin: 50px auto;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: #333;
 }
 
-form {
+#calendar {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.week {
+    border-bottom: 1px solid #ccc;
+}
+
+.day {
+    padding: 10px;
+    text-align: center;
+}
+
+.events {
+    margin-top: 5px;
     display: flex;
-    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
-input[type="text"],
-input[type="date"],
-button {
-    padding: 10px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-button {
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-#schedule {
-    margin-top: 20px;
-}
-
-.event {
-    background-color: #f9f9f9;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+.events div {
+    background-color: #4CAF50; /* 마음에 드는 색상으로 변경 가능 */
+    color: white;
+    padding: 2px 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+    font-size: 12px;
 }
