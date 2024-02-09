@@ -10,8 +10,10 @@ h1 {
 
 #calendar {
     margin-top: 20px;
+    width: 80%; /* 가운데 정렬을 위해 너비를 조정합니다 */
+    margin: 0 auto; /* 가운데 정렬합니다 */
     border-collapse: collapse;
-    width: 100%;
+    font-size: 18px; /* 달력의 글꼴 크기를 조정합니다 */
 }
 
 .week {
@@ -19,7 +21,7 @@ h1 {
 }
 
 .day {
-    padding: 10px;
+    padding: 20px; /* 날짜 셀의 안쪽 여백을 조정합니다 */
     text-align: center;
 }
 
@@ -32,8 +34,8 @@ h1 {
 .events div {
     background-color: #4CAF50; /* 마음에 드는 색상으로 변경 가능 */
     color: white;
-    padding: 2px 5px;
+    padding: 5px 10px; /* 일정 요소의 안쪽 여백을 조정합니다 */
     margin-right: 5px;
     border-radius: 3px;
-    font-size: 12px;
+    font-size: 14px; /* 일정 요소의 글꼴 크기를 조정합니다 */
 }
