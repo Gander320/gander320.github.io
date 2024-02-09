@@ -1,25 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: ['dayGrid'], // DayGrid 플러그인 추가
-        initialView: 'dayGridMonth',
-        selectable: true,
-        dateClick: handleDateClick
-    });
-
-    calendar.render();
-
-    // 날짜 클릭 이벤트 핸들러
-    function handleDateClick(info) {
-        const startDateInput = document.getElementById('startDate');
-        const endDateInput = document.getElementById('endDate');
-
-        startDateInput.value = info.dateStr; // 시작일 입력 필드에 선택한 날짜 설정
-        endDateInput.value = info.dateStr; // 종료일 입력 필드에 선택한 날짜 설정
-    }
-
-    // 일정 추가 폼 제출 이벤트 리스너
+    const calendar = document.getElementById('calendar');
     const scheduleForm = document.getElementById('scheduleForm');
+
     scheduleForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
@@ -32,17 +14,32 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // 사용자가 입력한 날짜 범위에 대한 일정을 달력에 추가하는 로직을 작성하세요.
-        // 이 부분은 FullCalendar 라이브러리를 사용하여 해당 날짜 범위에 이벤트를 추가하는 방식으로 구현할 수 있습니다.
-        calendar.addEvent({
-            title: eventName,
-            start: startDate,
-            end: endDate
-        });
+        // 일정을 달력에 추가하는 함수 호출
+        addEventToCalendar(eventName, startDate, endDate);
 
         // 폼 초기화
         document.getElementById('eventName').value = '';
         document.getElementById('startDate').value = '';
         document.getElementById('endDate').value = '';
     });
+
+    function addEventToCalendar(eventName, startDate, endDate) {
+        // 시작일부터 종료일까지 반복하며 해당 날짜에 일정을 표시
+        let currentDate = new Date(startDate);
+        const end = new Date(endDate);
+
+        while (currentDate <= end) {
+            const dateKey = currentDate.toISOString().split('T')[0]; // 날짜를 'yyyy-mm-dd' 형식의 문자열로 변환
+            const cell = document.querySelector(`#calendar [data-date="${dateKey}"]`);
+
+            if (cell) {
+                const eventDiv = document.createElement('div');
+                eventDiv.classList.add('event');
+                eventDiv.textContent = eventName;
+                cell.appendChild(eventDiv);
+            }
+
+            currentDate.setDate(currentDate.getDate() + 1); // 다음 날짜로 이동
+        }
+    }
 });
