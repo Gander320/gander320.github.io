@@ -1,3 +1,5 @@
+// script.js
+
 document.addEventListener('DOMContentLoaded', function() {
     const calendarContainer = document.getElementById('calendar');
     const scheduleForm = document.getElementById('scheduleForm');
@@ -19,6 +21,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const startingDay = firstDayOfMonth.getDay();
         let date = 1;
 
+        // 테이블 헤더 생성
+        const headerRow = document.createElement('tr');
+        for (let i = 0; i < 7; i++) {
+            const th = document.createElement('th');
+            th.textContent = ['일', '월', '화', '수', '목', '금', '토'][i];
+            headerRow.appendChild(th);
+        }
+        const thead = document.createElement('thead');
+        thead.appendChild(headerRow);
+        calendar.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
         for (let i = 0; i < 6; i++) { // 최대 6주까지 표시
             const weekRow = document.createElement('tr');
             weekRow.classList.add('week');
@@ -53,8 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 weekRow.appendChild(cell);
             }
-            calendar.appendChild(weekRow);
+            tbody.appendChild(weekRow);
         }
+        calendar.appendChild(tbody);
 
         calendarContainer.appendChild(calendar);
     }
@@ -84,10 +99,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 폼 초기화
         document.getElementById('eventName').value = '';
-        document.getElementById('startDate').value = '';
-        document.getElementById('endDate').value = '';
-    });
-
-    // 초기 달력 초기화
-    initCalendar();
-});
