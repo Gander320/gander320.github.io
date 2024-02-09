@@ -53,4 +53,32 @@ h1 {
 .events div {
     background-color: #4CAF50;
     color: white;
- 
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="date"],
+button {
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 추가된 CSS */
+.table-container {
+    margin: 20px auto; /* 표를 수평 가운데 정렬 */
+}
