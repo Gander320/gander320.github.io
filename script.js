@@ -1,5 +1,3 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const calendarContainer = document.getElementById('calendar');
     const scheduleForm = document.getElementById('scheduleForm');
