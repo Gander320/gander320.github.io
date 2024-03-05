@@ -57,19 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     // 추가된 일정 표시
                     const eventDiv = document.createElement('div');
                     eventDiv.classList.add('events');
-                    events.filter(event => event.date === dateKey).forEach(event => {
-                        const eventNameDiv = document.createElement('div');
-                        eventNameDiv.textContent = event.name;
-                        eventDiv.appendChild(eventNameDiv);
-                    });
-                    cell.appendChild(eventDiv);
-
-                    // 시작일과 종료일 사이의 일정을 표시합니다.
                     events.filter(event => event.startDate <= dateKey && event.endDate >= dateKey).forEach(event => {
                         const eventNameDiv = document.createElement('div');
                         eventNameDiv.textContent = event.name;
                         eventDiv.appendChild(eventNameDiv);
                     });
+                    cell.appendChild(eventDiv);
 
                     date++;
                 }
