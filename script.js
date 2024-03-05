@@ -1,22 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('event-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // 폼 제출로 인한 페이지 새로고침 방지
-        addEventToCalendar();
-    });
+    generateCalendar();
 });
 
-function addEventToCalendar() {
-    var eventTitle = document.getElementById('event-title').value.trim();
-    var eventDate = document.getElementById('event-date').value.trim();
-    if (eventTitle && eventDate) {
-        var calendarView = document.getElementById('calendar-view');
-        var eventElement = document.createElement('div');
-        eventElement.textContent = `${eventDate}: ${eventTitle}`;
-        eventElement.classList.add('p-2', 'bg-blue-500', 'text-white', 'rounded', 'mt-2');
-        calendarView.appendChild(eventElement);
-        document.getElementById('event-title').value = ''; // 입력 필드 초기화
-        document.getElementById('event-date').value = '';
-    } else {
-        alert('이벤트 제목과 날짜를 모두 입력해주세요.');
+function generateCalendar() {
+    const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+    const calendarView = document.getElementById('calendar-view');
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('calendar-day');
+        dayElement.textContent = day;
+        dayElement.addEventListener('click', function() {
+            const eventTitle = prompt("이벤트 제목을 입력하세요:", "");
+            if (eventTitle) {
+                addEventToCalendar(day, eventTitle);
+            }
+        });
+        calendarView.appendChild(dayElement);
     }
+}
+
+function addEventToCalendar(day, eventTitle) {
+    const calendarView = document.getElementById('calendar-view');
+    const eventElement = document.createElement('div');
+    eventElement.textContent = `${day}일: ${eventTitle}`;
+    eventElement.classList.add('p-2', 'bg-blue-500', 'text-white', 'rounded', 'mt-2');
+    calendarView.appendChild(eventElement);
 }
