@@ -7,14 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function addEventToCalendar() {
     var eventTitle = document.getElementById('event-title').value.trim();
-    if (eventTitle) {
+    var eventDate = document.getElementById('event-date').value.trim();
+    if (eventTitle && eventDate) {
         var calendarView = document.getElementById('calendar-view');
         var eventElement = document.createElement('div');
-        eventElement.textContent = eventTitle; // 일정 제목을 텍스트 콘텐츠로 추가
+        eventElement.textContent = `${eventDate}: ${eventTitle}`;
         eventElement.classList.add('p-2', 'bg-blue-500', 'text-white', 'rounded', 'mt-2');
-        calendarView.appendChild(eventElement); // 캘린더 뷰에 일정 요소 추가
+        calendarView.appendChild(eventElement);
         document.getElementById('event-title').value = ''; // 입력 필드 초기화
+        document.getElementById('event-date').value = '';
     } else {
-        alert('일정 제목을 입력해주세요.'); // 제목이 비어있을 경우 경고
+        alert('이벤트 제목과 날짜를 모두 입력해주세요.');
     }
 }
