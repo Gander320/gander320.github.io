@@ -1,13 +1,9 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const calendarBody = document.getElementById('calendar-body');
-    const scheduleForm = document.getElementById('scheduleForm');
     const prevMonthBtn = document.getElementById('prevMonthBtn');
     const nextMonthBtn = document.getElementById('nextMonthBtn');
     const yearMonthDisplay = document.getElementById('yearMonthDisplay');
 
-    const events = [];
     let currentYear, currentMonth;
 
     function renderCalendar(year, month) {
@@ -19,34 +15,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const firstDayOfMonth = new Date(year, month, 1).getDay();
 
         let date = 1;
-        let day;
+        let nextMonthDate = 1;
 
         calendarBody.innerHTML = '';
 
         // 주 단위로 표시
         for (let week = 0; week < 6; week++) {
             const row = document.createElement('tr');
-            let isEndOfCurrentMonth = false; // 해당 주에 해당 달의 말일이 포함되는지 여부
 
-            for (day = 0; day < 7; day++) {
+            for (let day = 0; day < 7; day++) {
                 const cell = document.createElement('td');
                 if (week === 0 && day < firstDayOfMonth) {
+                    // 이전 달의 날짜를 채움
                     cell.textContent = prevMonthLastDate - firstDayOfMonth + day + 1;
+                    cell.classList.add('prev-month');
                 } else if (date > currentMonthLastDate) {
-                    isEndOfCurrentMonth = true;
-                    break;
+                    // 다음 달의 날짜를 채움
+                    cell.textContent = nextMonthDate++;
+                    cell.classList.add('next-month');
                 } else {
+                    // 현재 달의 날짜를 채움
                     cell.textContent = date++;
+                    cell.classList.add('current-month');
+                    if (date - 1 === new Date().getDate() && year === new Date().getFullYear() && month === new Date().getMonth()) {
+                        cell.classList.add('today'); // 오늘 날짜에 'today' 클래스 추가
+                    }
                 }
                 row.appendChild(cell);
             }
-
-            if (isEndOfCurrentMonth) {
-                // 해당 주에 해당 달의 말일이 포함되면 거기서 표 생성을 중지
-                break;
-            } else {
-                calendarBody.appendChild(row);
-            }
+            calendarBody.appendChild(row);
         }
 
         yearMonthDisplay.textContent = `${currentYear}년 ${currentMonth + 1}월`;
