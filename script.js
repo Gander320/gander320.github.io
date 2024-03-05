@@ -1,109 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const calendarContainer = document.getElementById('calendar');
-    const scheduleForm = document.getElementById('scheduleForm');
-    const events = []; // 추가된 일정을 저장하는 배열
+    // 초기 캘린더 뷰 설정
+    initializeCalendar();
 
-    // 달력 초기화 함수
-    function initCalendar() {
-        calendarContainer.innerHTML = ''; // 달력 컨테이너 초기화
-        const calendar = document.createElement('table');
-        calendar.classList.add('calendar');
-
-        // 달력 바디 생성
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = today.getMonth();
-        const firstDayOfMonth = new Date(year, month, 1);
-        const lastDayOfMonth = new Date(year, month + 1, 0);
-        const numDays = lastDayOfMonth.getDate();
-        const startingDay = firstDayOfMonth.getDay();
-
-        // 요일 배열
-        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-
-        // 테이블 헤더 생성
-        const headerRow = document.createElement('tr');
-        for (let i = 0; i < 7; i++) {
-            const th = document.createElement('th');
-            th.textContent = weekdays[i];
-            headerRow.appendChild(th);
-        }
-        const thead = document.createElement('thead');
-        thead.appendChild(headerRow);
-        calendar.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-        let date = 1;
-        for (let i = 0; i < 6; i++) { // 최대 6주까지 표시
-            const weekRow = document.createElement('tr');
-            weekRow.classList.add('week');
-            for (let j = 0; j < 7; j++) {
-                const cell = document.createElement('td');
-                cell.classList.add('day');
-
-                if (i === 0 && j < startingDay) {
-                    // 이전 달 날짜
-                    cell.textContent = '';
-                } else if (date > numDays) {
-                    break; // 다음 달 날짜
-                } else {
-                    cell.textContent = date;
-
-                    const currentDate = new Date(year, month, date);
-                    const dateKey = currentDate.toISOString().split('T')[0];
-                    cell.dataset.date = dateKey;
-
-                    // 추가된 일정 표시
-                    const eventDiv = document.createElement('div');
-                    eventDiv.classList.add('events');
-                    events.filter(event => event.date === dateKey).forEach(event => {
-                        const eventNameDiv = document.createElement('div');
-                        eventNameDiv.textContent = event.name;
-                        eventDiv.appendChild(eventNameDiv);
-                    });
-                    cell.appendChild(eventDiv);
-
-                    date++;
-                }
-
-                weekRow.appendChild(cell);
-            }
-            tbody.appendChild(weekRow);
-        }
-        calendar.appendChild(tbody);
-
-        calendarContainer.appendChild(calendar);
-    }
-
-    // 일정 추가 이벤트 핸들러
-    scheduleForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const eventName = document.getElementById('eventName').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-
-        if (eventName.trim() === '' || startDate.trim() === '' || endDate.trim() === '') {
-            alert('일정 이름과 시작일, 종료일을 모두 입력하세요.');
-            return;
-        }
-
-        // 일정을 배열에 추가
-        const newEvent = {
-            name: eventName,
-            date: startDate // 시작일 기준으로만 일정 추가
-        };
-        events.push(newEvent);
-
-        // 달력 다시 초기화
-        initCalendar();
-
-        // 폼 초기화
-        document.getElementById('eventName').value = '';
-        document.getElementById('startDate').value = '';
-        document.getElementById('endDate').value = '';
+    // 일정 추가 버튼 이벤트 리스너
+    document.getElementById('add-event-btn').addEventListener('click', function() {
+        // 일정 추가 모달 표시 로직 (추후 구현)
+        showAddEventModal();
     });
 
-    // 초기 달력 초기화
-    initCalendar();
+    // 뷰 전환 버튼 이벤트 리스너
+    document.getElementById('view-monthly-btn').addEventListener('click', function() {
+        switchView('monthly');
+    });
+    document.getElementById('view-weekly-btn').addEventListener('click', function() {
+        switchView('weekly');
+    });
+    document.getElementById('view-daily-btn').addEventListener('click', function() {
+        switchView('daily');
+    });
 });
+
+// 초기 캘린더 뷰 설정 함수
+function initializeCalendar() {
+    // 여기에 캘린더 초기화 로직을 구현합니다. (예: 현재 달의 캘린더 뷰를 생성)
+}
+
+// 일정 추가 모달 표시 함수
+function showAddEventModal() {
+    // 여기에 일정 추가 모달을 표시하는 로직을 구현합니다.
+}
+
+// 뷰 전환 함수
+function switchView(viewType) {
+    // viewType에 따라 캘린더 뷰를 전환하는 로직을 구현합니다.
+    // 예: 'monthly', 'weekly', 'daily'
+}
