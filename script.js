@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     generateCalendar();
+    document.getElementById('add-event-button').addEventListener('click', addEvent);
 });
 
 function generateCalendar() {
@@ -10,20 +11,33 @@ function generateCalendar() {
         const dayElement = document.createElement('div');
         dayElement.classList.add('calendar-day');
         dayElement.textContent = day;
+        dayElement.setAttribute('data-day', day);
         dayElement.addEventListener('click', function() {
-            const eventTitle = prompt("이벤트 제목을 입력하세요:", "");
-            if (eventTitle) {
-                addEventToCalendar(day, eventTitle);
-            }
+            document.getElementById('event-title').focus();
         });
         calendarView.appendChild(dayElement);
     }
 }
 
-function addEventToCalendar(day, eventTitle) {
-    const calendarView = document.getElementById('calendar-view');
-    const eventElement = document.createElement('div');
-    eventElement.textContent = `${day}일: ${eventTitle}`;
-    eventElement.classList.add('p-2', 'bg-blue-500', 'text-white', 'rounded', 'mt-2');
-    calendarView.appendChild(eventElement);
+function addEvent() {
+    const eventTitle = document.getElementById('event-title').value.trim();
+    if (!eventTitle) {
+        alert('이벤트 제목을 입력해주세요.');
+        return;
+    }
+
+    const selectedDay = prompt("날짜를 입력하세요 (1부터 시작하는 날짜):", "");
+    if (selectedDay) {
+        const calendarView = document.getElementById('calendar-view');
+        const dayElement = calendarView.querySelector(`[data-day="${selectedDay}"]`);
+        if (dayElement) {
+            const eventElement = document.createElement('div');
+            eventElement.classList.add('event');
+            eventElement.textContent = eventTitle;
+            dayElement.appendChild(eventElement);
+            document.getElementById('event-title').value = ''; // 입력 필드 초기화
+        } else {
+            alert('유효한 날짜를 입력해주세요.');
+        }
+    }
 }
