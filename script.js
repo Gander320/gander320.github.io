@@ -37,7 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 row.appendChild(cell);
             }
-            if (day === 7) {
+            if (date > currentMonthLastDate) {
+                // 해당 주에 해당 달의 말일이 표시되면 거기서 표 생성을 중지
+                if (week === 0) {
+                    calendarBody.appendChild(row);
+                }
+                break;
+            } else {
                 calendarBody.appendChild(row);
             }
         }
