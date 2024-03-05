@@ -1,5 +1,3 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const calendarContainer = document.getElementById('calendar');
     const scheduleForm = document.getElementById('scheduleForm');
@@ -7,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 달력 초기화 함수
     function initCalendar() {
-        calendarContainer.innerHTML = ''; // 달력 컨테이너 초기화
         const calendar = document.createElement('table');
         calendar.classList.add('calendar');
 
@@ -74,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         calendar.appendChild(tbody);
 
+        // 기존 달력을 제거하고 새로운 달력을 추가
+        const oldCalendar = document.querySelector('.calendar');
+        if (oldCalendar) {
+            oldCalendar.remove();
+        }
         calendarContainer.appendChild(calendar);
     }
 
@@ -91,4 +93,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 일정을 배열에 추가
-        const new
+        const newEvent = {
+            name: eventName,
+            date: startDate // 시작일 기준으로만 일정 추가
+        };
+        events.push(newEvent);
+
+        // 달력 다시 초기화
+        initCalendar();
+
+        // 폼 초기화
+        document.getElementById('eventName').value = '';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+    });
+
+    // 초기 달력 초기화
+    initCalendar();
+});
