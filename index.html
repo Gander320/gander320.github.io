@@ -9,16 +9,15 @@
 <body class="bg-gray-100">
     <div class="container mx-auto p-4">
         <h1 class="text-xl font-bold mb-4">여행사 업무용 일정 캘린더</h1>
-        <!-- 일정 추가 섹션 -->
-        <div class="mb-4">
+        <form id="event-form" class="mb-4">
             <label for="event-title" class="block text-gray-700 text-sm font-bold mb-2">일정 제목</label>
             <input type="text" id="event-title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-            <button type="button" onclick="addEventToCalendar()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
                 저장
             </button>
-        </div>
+        </form>
         <div id="calendar-view" class="mt-4">
-            <!-- 캘린더 뷰가 여기에 표시됩니다. -->
+            <!-- 캘린더 뷰에 일정이 표시됩니다 -->
         </div>
     </div>
     <script src="app.js"></script>
