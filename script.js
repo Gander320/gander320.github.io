@@ -1,12 +1,14 @@
+// script.js
+
 document.addEventListener('DOMContentLoaded', function() {
-    const calendarContainer = document.getElementById('calendar');
+    const calendarContainer = document.getElementById('calendar-container');
     const scheduleForm = document.getElementById('scheduleForm');
     const events = []; // 추가된 일정을 저장하는 배열
 
     // 달력 초기화 함수
     function initCalendar() {
         const calendar = document.createElement('table');
-        calendar.classList.add('calendar');
+        calendar.id = 'calendar';
 
         // 달력 바디 생성
         const today = new Date();
@@ -72,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         calendar.appendChild(tbody);
 
         // 기존 달력을 제거하고 새로운 달력을 추가
-        const oldCalendar = document.querySelector('.calendar');
+        const oldCalendar = document.getElementById('calendar');
         if (oldCalendar) {
             oldCalendar.remove();
         }
