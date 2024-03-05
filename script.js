@@ -26,22 +26,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // 주 단위로 표시
         for (let week = 0; week < 6; week++) {
             const row = document.createElement('tr');
+            let isEndOfCurrentMonth = false; // 해당 주에 해당 달의 말일이 포함되는지 여부
+
             for (day = 0; day < 7; day++) {
                 const cell = document.createElement('td');
                 if (week === 0 && day < firstDayOfMonth) {
                     cell.textContent = prevMonthLastDate - firstDayOfMonth + day + 1;
                 } else if (date > currentMonthLastDate) {
+                    isEndOfCurrentMonth = true;
                     break;
                 } else {
                     cell.textContent = date++;
                 }
                 row.appendChild(cell);
             }
-            if (date > currentMonthLastDate) {
-                // 해당 주에 해당 달의 말일이 표시되면 거기서 표 생성을 중지
-                if (week === 0) {
-                    calendarBody.appendChild(row);
-                }
+
+            if (isEndOfCurrentMonth) {
+                // 해당 주에 해당 달의 말일이 포함되면 거기서 표 생성을 중지
                 break;
             } else {
                 calendarBody.appendChild(row);
