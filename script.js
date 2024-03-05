@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 일정 추가 버튼 이벤트 리스너
     document.getElementById('add-event-btn').addEventListener('click', function() {
-        // 일정 추가 모달 표시 로직 (추후 구현)
+        // 일정 추가 모달 표시 로직
         showAddEventModal();
     });
 
@@ -20,18 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 초기 캘린더 뷰 설정 함수
-function initializeCalendar() {
-    // 여기에 캘린더 초기화 로직을 구현합니다. (예: 현재 달의 캘린더 뷰를 생성)
-}
-
 // 일정 추가 모달 표시 함수
 function showAddEventModal() {
-    // 여기에 일정 추가 모달을 표시하는 로직을 구현합니다.
+    var modal = document.getElementById('add-event-modal');
+    modal.classList.remove('hidden'); // TailwindCSS의 'hidden' 클래스를 제거하여 모달을 표시
 }
 
-// 뷰 전환 함수
-function switchView(viewType) {
-    // viewType에 따라 캘린더 뷰를 전환하는 로직을 구현합니다.
-    // 예: 'monthly', 'weekly', 'daily'
+// 모달 닫기 함수
+function closeModal() {
+    var modal = document.getElementById('add-event-modal');
+    modal.classList.add('hidden'); // TailwindCSS의 'hidden' 클래스를 추가하여 모달을 숨김
 }
+
+// 초기 캘린더 뷰 설정 함수 및 뷰 전환 함수는 현재 구현 예제가 제공되지 않았으므로, 구체적인 내용은 생략됩니다.
