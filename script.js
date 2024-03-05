@@ -1,78 +1,79 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    const calendarContainer = document.getElementById('calendar-container');
+    const calendarBody = document.getElementById('calendar-body');
     const scheduleForm = document.getElementById('scheduleForm');
-    const changeMonthBtn = document.getElementById('changeMonthBtn');
+    const prevMonthBtn = document.getElementById('prevMonthBtn');
+    const nextMonthBtn = document.getElementById('nextMonthBtn');
+    const yearMonthDisplay = document.getElementById('yearMonthDisplay'); // 새로 추가
+
     const events = []; // 추가된 일정을 저장하는 배열
+    let currentYear, currentMonth;
 
-    // 달력 초기화 함수
-    function initCalendar(year, month) {
-        const calendar = document.createElement('table');
-        calendar.id = 'calendar';
+    // 초기 달력 렌더링
+    function renderCalendar(year, month) {
+        currentYear = year;
+        currentMonth = month;
 
-        // 달력 바디 생성
-        const firstDayOfMonth = new Date(year, month, 1);
-        const lastDayOfMonth = new Date(year, month + 1, 0);
-        const numDays = lastDayOfMonth.getDate();
-        const startingDay = firstDayOfMonth.getDay();
+        // 이전 달의 마지막 날짜
+        const prevMonthLastDate = new Date(year, month, 0).getDate();
+        // 현재 달의 마지막 날짜
+        const currentMonthLastDate = new Date(year, month + 1, 0).getDate();
+        // 현재 달의 첫 번째 요일
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
 
-        // 요일 배열
-        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-
-        // 테이블 헤더 생성
-        const headerRow = document.createElement('tr');
-        for (let i = 0; i < 7; i++) {
-            const th = document.createElement('th');
-            th.textContent = weekdays[i];
-            headerRow.appendChild(th);
-        }
-        const thead = document.createElement('thead');
-        thead.appendChild(headerRow);
-        calendar.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
         let date = 1;
-        for (let i = 0; i < 6; i++) { // 최대 6주까지 표시
-            const weekRow = document.createElement('tr');
-            weekRow.classList.add('week');
-            for (let j = 0; j < 7; j++) {
-                const cell = document.createElement('td');
-                cell.classList.add('day');
+        let day;
 
-                if (i === 0 && j < startingDay) {
-                    // 이전 달 날짜
-                    cell.textContent = '';
-                } else if (date > numDays) {
-                    break; // 다음 달 날짜
-                } else {
-                    cell.textContent = date;
+        calendarBody.innerHTML = ''; // 기존 콘텐츠 삭제
 
-                    const currentDate = new Date(year, month, date);
-                    const dateKey = currentDate.toISOString().split('T')[0];
-                    cell.dataset.date = dateKey;
-
-                    // 추가된 일정 표시
-                    const eventDiv = document.createElement('div');
-                    eventDiv.classList.add('events');
-                    events.filter(event => event.startDate <= dateKey && event.endDate >= dateKey).forEach(event => {
-                        const eventNameDiv = document.createElement('div');
-                        eventNameDiv.textContent = event.name;
-                        eventDiv.appendChild(eventNameDiv);
-                    });
-                    cell.appendChild(eventDiv);
-
-                    date++;
-                }
-
-                weekRow.appendChild(cell);
-            }
-            tbody.appendChild(weekRow);
+        // 이전 달 날짜 채우기
+        for (day = firstDayOfMonth; day > 0; day--) {
+            const cell = document.createElement('td');
+            cell.textContent = prevMonthLastDate - day + 1;
+            calendarBody.appendChild(cell);
         }
-        calendar.appendChild(tbody);
 
-        // 기존 달력을 제거하고 새로운 달력을 추가
-        const oldCalendar = document.getElementById('calendar');
-        if (oldCalendar) {
-            oldCalendar.remove();
+        // 현재 달 날짜 채우기
+        for (date = 1; date <= currentMonthLastDate; date++) {
+            const cell = document.createElement('td');
+            cell.textContent = date;
+            calendarBody.appendChild(cell);
         }
+
+        // 다음 달 날짜 채우기
+        const remainingCells = 42 - (day + currentMonthLastDate); // 6주 * 7일
+        for (let i = 0; i < remainingCells; i++) {
+            const cell = document.createElement('td');
+            cell.textContent = i + 1;
+            calendarBody.appendChild(cell);
+        }
+
+        // 현재 년도와 달 표시 업데이트
+        yearMonthDisplay.textContent = `${currentYear}년 ${currentMonth + 1}월`; // 새로 추가
+    }
+
+    // 이전 달로 이동 버튼 이벤트 처리
+    prevMonthBtn.addEventListener('click', function() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        renderCalendar(currentYear, currentMonth);
+    });
+
+    // 다음 달로 이동 버튼 이벤트 처리
+    nextMonthBtn.addEventListener('click', function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        renderCalendar(currentYear, currentMonth);
+    });
+
+    // 초기 달력 렌더링
+    const today = new Date();
+    renderCalendar(today.getFullYear(), today.getMonth());
+});
