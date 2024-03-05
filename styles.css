@@ -86,3 +86,31 @@ button:hover {
     margin-top: 20px; /* 버튼과 달력 사이 간격 조절 */
     text-align: center; /* 버튼 가운데 정렬 */
 }
+
+/* 기존 CSS 코드는 그대로 유지하고, 추가된 부분만 아래에 작성합니다. */
+
+/* 현재 달의 날짜 스타일 */
+.current-month {
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* 이전 달과 다음 달의 날짜 스타일 */
+.prev-month,
+.next-month {
+    background-color: #e0e0e0;
+    color: #757575;
+}
+
+/* 오늘 날짜 스타일 */
+.today {
+    background-color: #4CAF50;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* 주말 스타일 (일요일과 토요일) */
+#calendar tr td:first-child,
+#calendar tr td:last-child {
+    color: #d32f2f;
+}
