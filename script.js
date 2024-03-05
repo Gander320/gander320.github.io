@@ -64,6 +64,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     cell.appendChild(eventDiv);
 
+                    // 시작일과 종료일 사이의 일정을 표시합니다.
+                    events.filter(event => event.date === dateKey || (event.startDate <= dateKey && event.endDate >= dateKey)).forEach(event => {
+                        const eventNameDiv = document.createElement('div');
+                        eventNameDiv.textContent = event.name;
+                        eventDiv.appendChild(eventNameDiv);
+                    });
+
                     date++;
                 }
 
@@ -97,7 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // 일정을 배열에 추가
         const newEvent = {
             name: eventName,
-            date: startDate // 시작일 기준으로만 일정 추가
+            startDate: startDate,
+            endDate: endDate
         };
         events.push(newEvent);
 
