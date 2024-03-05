@@ -3,17 +3,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     const calendarContainer = document.getElementById('calendar-container');
     const scheduleForm = document.getElementById('scheduleForm');
+    const changeMonthBtn = document.getElementById('changeMonthBtn');
     const events = []; // 추가된 일정을 저장하는 배열
 
     // 달력 초기화 함수
-    function initCalendar() {
+    function initCalendar(year, month) {
         const calendar = document.createElement('table');
         calendar.id = 'calendar';
 
         // 달력 바디 생성
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = today.getMonth();
         const firstDayOfMonth = new Date(year, month, 1);
         const lastDayOfMonth = new Date(year, month + 1, 0);
         const numDays = lastDayOfMonth.getDate();
@@ -78,7 +76,3 @@ document.addEventListener('DOMContentLoaded', function() {
         if (oldCalendar) {
             oldCalendar.remove();
         }
-        calendarContainer.appendChild(calendar);
-    }
-
-    // 일정 추가 이벤트 핸들러
