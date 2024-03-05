@@ -22,8 +22,8 @@
                         <th>토</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- 달력 표시 부분은 스크립트로 동적으로 생성됩니다. -->
+                <tbody id="calendar-body">
+                    <!-- 달력 표시 부분은 JavaScript로 동적으로 생성됩니다. -->
                 </tbody>
             </table>
         </div>
@@ -35,7 +35,9 @@
         </form>
     </div>
 
-    <button id="changeMonthBtn">다음 달로 이동</button>
+    <button id="prevMonthBtn">이전 달</button>
+    <span id="yearMonthDisplay"></span> <!-- 현재 년도와 달을 표시할 요소 -->
+    <button id="nextMonthBtn">다음 달</button>
 
     <script src="script.js"></script>
 </body>
