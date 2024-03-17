@@ -2,45 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Scheduler</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Turn-based Game</title>
 </head>
 <body>
-    <div class="container">
-        <h1>여행 일정 스케줄러</h1>
-        <div class="table-container" id="calendar-container">
-            <table id="calendar">
-                <thead>
-                    <tr class="week">
-                        <th>일</th>
-                        <th>월</th>
-                        <th>화</th>
-                        <th>수</th>
-                        <th>목</th>
-                        <th>금</th>
-                        <th>토</th>
-                    </tr>
-                </thead>
-                <tbody id="calendar-body">
-                    <!-- 달력 표시 부분은 JavaScript로 동적으로 생성됩니다. -->
-                </tbody>
-            </table>
-        </div>
-        <form id="scheduleForm">
-            <input type="text" id="eventName" placeholder="일정 이름"><br>
-            <input type="date" id="startDate"><br>
-            <input type="date" id="endDate"><br>
-            <button type="submit">일정 추가</button>
-        </form>
+    <h1>Dark Fantasy Turn-based Game</h1>
+    <div id="characters">
+        <div class="character" id="char1">Character 1</div>
+        <div class="character" id="char2">Character 2</div>
+        <div class="character" id="char3">Character 3</div>
+        <div class="character" id="char4">Character 4</div>
     </div>
-
-    <div class="button-container">
-        <button id="prevMonthBtn">이전 달</button>
-        <span id="yearMonthDisplay"></span> <!-- 현재 년도와 달을 표시할 요소 -->
-        <button id="nextMonthBtn">다음 달</button>
-    </div>
-
+    <button id="attackTurnButton">Attack Turn</button>
+    <div id="enemy">Enemy: <span id="enemyHealth">100</span> HP</div>
     <script src="script.js"></script>
 </body>
 </html>
