@@ -1,124 +1,28 @@
-/* styles.css */
-
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f2f2f2;
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    font-family: 'Arial', sans-serif;
     text-align: center;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
 }
 
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-#calendar {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    border-collapse: collapse;
-}
-
-#calendar th,
-#calendar td {
+.character, #enemy {
+    margin: 10px;
     padding: 10px;
-    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    display: inline-block;
+    border-radius: 8px;
+}
+
+#attackTurnButton {
+    margin-top: 20px;
+    padding: 10px 20px;
     font-size: 16px;
-}
-
-#calendar .week th {
-    font-weight: bold;
-    background-color: #4CAF50;
-    color: #fff;
-}
-
-#calendar .today {
-    background-color: #e6f7ff;
-}
-
-.events {
-    margin-top: 5px;
-}
-
-.events div {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    margin-right: 5px;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
-input[type="text"],
-input[type="date"],
-button {
-    margin-bottom: 10px;
-}
-
-button {
-    background-color: #4CAF50;
+    cursor: pointer;
+    background-color: #8B0000;
     color: white;
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
     border-radius: 5px;
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
-.table-container {
-    margin: 20px auto; /* 표를 수평 가운데 정렬 */
-}
-
-.button-container {
-    margin-top: 20px; /* 버튼과 달력 사이 간격 조절 */
-    text-align: center; /* 버튼 가운데 정렬 */
-}
-
-/* 기존 CSS 코드는 그대로 유지하고, 추가된 부분만 아래에 작성합니다. */
-
-/* 현재 달의 날짜 스타일 */
-.current-month {
-    background-color: #ffffff;
-    color: #333;
-}
-
-/* 이전 달과 다음 달의 날짜 스타일 */
-.prev-month,
-.next-month {
-    background-color: #e0e0e0;
-    color: #757575;
-}
-
-/* 오늘 날짜 스타일 */
-.today {
-    background-color: #4CAF50;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-/* 주말 스타일 (일요일과 토요일) */
-#calendar tr td:first-child,
-#calendar tr td:last-child {
-    color: #d32f2f;
-}
-
-#calendar td div {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: 2px;
-    font-size: 0.75em;
+#attackTurnButton:disabled {
+    background-color: #a9a9a9;
 }
